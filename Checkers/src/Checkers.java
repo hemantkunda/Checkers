@@ -27,6 +27,7 @@ public class Checkers
 		wipeTokens();
 		display.setBoard(board);
 		addTokens();
+		board.reset();
 		display.showBoard();
 		continueRunning();
 	}
