@@ -17,8 +17,6 @@ public class BoardDisplay implements ActionListener
 	private JFrame frame;
 	private boolean isRedTurn;
 	private boolean jumping;
-	public ArrayList<Token> redTokens;
-	public ArrayList<Token> blackTokens;
 	
 	// Constructs a new display for displaying the given board
 	public BoardDisplay(Board board)
@@ -34,18 +32,15 @@ public class BoardDisplay implements ActionListener
             public void run()
             {
             	try {
+            				// to make buttons fully colored
 					UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (UnsupportedLookAndFeelException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
                 createAndShowGUI();
@@ -85,7 +80,7 @@ public class BoardDisplay implements ActionListener
         		JButton button = new JButton();
         		button.setContentAreaFilled(false);
         		button.setOpaque(true);
-        		if ((row + col) % 2 == 0)
+        		if ((row + col) % 2 == 0) // buttons switch off between 2 colors going both along rows and columns
         		{
         			button.setBackground(new Color(155, 145, 115));
         		}
@@ -118,10 +113,11 @@ public class BoardDisplay implements ActionListener
 		int row = Integer.parseInt(command.substring(0, comma));
 		int col = Integer.parseInt(command.substring(comma + 1));
 		Location loc = new Location(row, col);
-
+		
+		// No selected token or a token is currently jumping
 		if (selectedToken == null || (jumping && !selectedToken.equals(jumpingToken)))
 		{
-			System.out.println("1");
+			//System.out.println("1");
 			//we have just selected a piece for the first time.
 			if (board.get(loc) != null)
 			{
@@ -130,7 +126,7 @@ public class BoardDisplay implements ActionListener
 				{
 					return;
 				}
-				boolean validMove = isRedTurn == selectedToken.isRedPiece();
+				boolean validMove = isRedTurn == selectedToken.isRedPiece(); // is it that color's turn?
 				if (validMove)
 				{
 					grid[loc.x()][loc.y()].setBorder(BorderFactory.createLineBorder(Color.YELLOW));			
@@ -144,11 +140,11 @@ public class BoardDisplay implements ActionListener
 		}
 		else if (loc.equals(selectedToken.getLocation()))
 		{
-			System.out.println("2");
+			//System.out.println("2");
 			//we are deselecting the piece
 			selectedToken = null;
 			grid[loc.x()][loc.y()].setBorder(null);			
-			if (jumping)
+			if (jumping) // stop jumping early
 			{
 				jumping = false;
 				isRedTurn = !isRedTurn;
@@ -156,12 +152,11 @@ public class BoardDisplay implements ActionListener
 		}
 		else
 		{
-			System.out.println("3");
+			//System.out.println("3");
 			if (selectedToken.canJumpTo(loc))
 			{
-				System.out.println("4");
 				selectedToken.jumpTo(loc);
-				if (isRedTurn)
+				if (isRedTurn) // either a red token or a black token has been killed
 				{
 					board.updateBlackTokens();
 				}
@@ -172,7 +167,7 @@ public class BoardDisplay implements ActionListener
 				if (!selectedToken.canJump())
 				{
 					isRedTurn = !isRedTurn;
-					System.out.println("Can't jump");
+					//System.out.println("Can't jump");
 					clearColors();
 					jumping = false;
 					if (selectedToken.canPromote())
@@ -185,7 +180,7 @@ public class BoardDisplay implements ActionListener
 				else
 				{
 					jumping = true;
-					System.out.println("Can jump");
+					//System.out.println("Can jump");
 					jumpingToken = selectedToken;
 					selectedToken = null;
 					clearColors();
@@ -227,11 +222,13 @@ public class BoardDisplay implements ActionListener
 			}
 	}
 	
+	//checks the number of tokens on each team to see if the game is over
 	public boolean isGameOver()
 	{
 		return board.remainingBlackTokens() == 0 || board.remainingRedTokens() == 0;
 	}
 	
+	//Clears the borders around each button
 	public void clearColors()
 	{
 		for (JButton[] bb : grid)
@@ -242,8 +239,6 @@ public class BoardDisplay implements ActionListener
 			}
 		}
 	}
-
-	// Waits for the user to select a move and returns this move.
 
 	// Sets the title of the window.
 	public void setTitle(String title)
