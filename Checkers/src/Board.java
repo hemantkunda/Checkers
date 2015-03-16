@@ -27,6 +27,12 @@ public class Board
 		return (grid[l.x()][l.y()]);
 	}
 	
+	public void reset()
+	{
+		redTokens = 12;
+		blackTokens = 12;
+	}
+	
 	/*
 	 * Returns the Token at the specified location and replaces it with the null value.
 	 */ 
