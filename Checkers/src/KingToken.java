@@ -6,6 +6,7 @@ public class KingToken extends Token
 		super(t, b);
 	}
 	
+	//checks to see if this token and another token are on opposite sides.
 	public boolean isOppositeColor(Token t)
 	{
 		if (isRedPiece())
@@ -14,7 +15,9 @@ public class KingToken extends Token
 		}
 		return t.isRedPiece();
 	}
-
+	
+	// returns an array of Locations that the King can move to.  A conglomeration of the potential moves of both red and
+	// black tokens.
 	public Location[] validAdjMoveLocs()
 	{
 		Location[] validLocs;
@@ -56,6 +59,8 @@ public class KingToken extends Token
 		return validLocs;
 	}
 	
+	// returns an array of Locations that the King can jump to. A conglomeration of the potential jumps of both red and 
+	// black tokens.
 	public Location[] validJumpLocs()
 	{
 		Location[] jumpLocs;
@@ -173,6 +178,7 @@ public class KingToken extends Token
 		return jumpLocs;
 	}
 	
+	// returns a String containing the file path to the KingToken's icon.
 	public String getImageFileName()
 	{
 		if (isRedPiece())
