@@ -12,6 +12,7 @@ public class Checkers
 	private boolean isRedWinner;
 	private boolean isGameOver;
 	
+	// sets up the game by creating the game board and adding tokens to the board.
 	private void initializeGame()
 	{
 		board = new Board();
@@ -20,6 +21,7 @@ public class Checkers
 		display.showBoard();
 	}
 	
+	// wipes the remaining tokens from the board and readds them in the initial setup.
 	private void restartGame()
 	{
 		wipeTokens();
@@ -29,6 +31,8 @@ public class Checkers
 		continueRunning();
 	}
 	
+	// runs the game as long as the game isn't over.  the method checks every second to see if the game has ended.
+	// then gets the user's input to see if it should restart the game.
 	public void run()
 	{
 		initializeGame();
@@ -55,6 +59,7 @@ public class Checkers
 		restart();
 	}
 	
+	// same as run but without the initial setup
 	public void continueRunning()
 	{
 		while (true)
@@ -86,6 +91,7 @@ public class Checkers
 		game.run();
 	}
 	
+	// asks the users if they want to restart the game using a popup window
 	public void restart()
 	{
 		String[] options = {"Yes", "No"};
@@ -98,6 +104,7 @@ public class Checkers
 		}
 	}
 	
+	// creates a popup screen announcing the winner once the game has finished
 	public void gameOverScreen()
 	{
 		String message = "";
@@ -112,6 +119,7 @@ public class Checkers
 		JOptionPane.showMessageDialog(null, message, "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	// clears all the tokens from the board
 	private void wipeTokens()
 	{
 		for (int r = 0; r < 8; r++)
@@ -124,6 +132,7 @@ public class Checkers
 		}
 	}
 	
+	// adds 24 tokens (12 for each side) to the board in the classic checkers pattern
 	private void addTokens()
 	{
 		for (int i = 1; i <= 7; i += 2)
@@ -137,9 +146,6 @@ public class Checkers
 			t2.place(l2);
 			Token t3 = new Token(true, board);
 			t3.place(l3);
-		//	redTokens.add(t1);
-		//	redTokens.add(t2);
-		//	blackTokens.add(t3);
 		}
 		for (int i = 0; i < 7; i += 2)
 		{
@@ -152,9 +158,6 @@ public class Checkers
 			t2.place(l2);
 			Token t3 = new Token(true, board);
 			t3.place(l3);
-		//	redTokens.add(t1);
-		//	blackTokens.add(t2);
-		//	blackTokens.add(t3);
 		}
 	}
 }
