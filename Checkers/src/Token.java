@@ -199,7 +199,7 @@ public class Token
 		return jumpLocs;
 	}
 	
-	
+	// returns true if the Token can move to the specified Location.
 	public boolean canMoveTo(Location l)
 	{
 		for (Location o : validAdjMoveLocs())
@@ -212,28 +212,33 @@ public class Token
 		return false;
 	}
 	
+	// Moves the Token to the specified Location on its board.
 	public void moveTo(Location l)
 	{
 		board.put(board.remove(loc), l);
 		loc = l;
 	}
 	
+	// Jumps the Token to the specified Location and removes whatever lies bewteen the two locations.
 	public void jumpTo(Location l)
 	{
 		board.remove(loc.between(l));
 		moveTo(l);
 	}
 	
+	// Returns the Location of the Token.
 	public Location getLocation()
 	{
 		return loc;
 	}
 	
+	// Gets the Board of the Token.
 	public Board getBoard()
 	{
 		return board;
 	}
 	
+	// Gets the Color of the Token.
 	public Color getColor()
 	{
 		if (isRedPiece())
@@ -243,6 +248,7 @@ public class Token
 		return Color.BLACK;
 	}
 	
+	// Returns true if the Token can jump at all.
 	public boolean canJump()
 	{
 		Location[] locs = validJumpLocs();
@@ -256,6 +262,7 @@ public class Token
 		return false;
 	}
 	
+	// Returns true if the Token can jump to the specified Location.
 	public boolean canJumpTo(Location l)
 	{
 		for (Location o : validJumpLocs())
@@ -269,6 +276,7 @@ public class Token
 		return false;
 	}
 	
+	// Returns a String containing the Token's icon filepath.
 	public String getImageFileName()
 	{
 		if (isRedPiece())
@@ -278,6 +286,7 @@ public class Token
 		return "tokens/blackToken.png";
 	}
 	
+	//Returns true if this Token and other share the same color and Location.
 	public boolean equals(Token other)
 	{
 		return redPiece == other.isRedPiece() && loc.equals(other.getLocation());
