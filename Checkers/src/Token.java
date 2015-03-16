@@ -12,11 +12,13 @@ public class Token
 		board = b;
 	}
 		
+	// returns true if the Token is red.
 	public boolean isRedPiece()
 	{
 		return redPiece;
 	}
 	
+	// places the Token at the specified Location in the board.
 	public void place(Location l)
 	{
 		if (loc == null)
@@ -26,6 +28,7 @@ public class Token
 		}
 	}
 	
+	// Promotes this token to a King.
 	public void promote()
 	{
 		KingToken king = new KingToken(redPiece, board);
@@ -33,6 +36,7 @@ public class Token
 		king.place(loc);
 	}
 	
+	// Returns true if the Token lies on the row farthest from its initial location. 
 	public boolean canPromote()
 	{
 		if (isRedPiece())
@@ -42,6 +46,7 @@ public class Token
 		return loc.x() == 7;
 	}
 	
+	// Removes the Token from the Board. Called when it's jumped over.
 	public void removeSelfFromBoard()
 	{
 		board.remove(loc);
@@ -49,6 +54,7 @@ public class Token
 		loc = null;
 	}
 	
+	// Returns a list of Locations that it can move to.  Directions differ based on the color.
 	public Location[] validAdjMoveLocs()
 	{
 		Location[] validLocs;
@@ -98,6 +104,7 @@ public class Token
 		return validLocs;
 	}
 	
+	// Returns a list of Locations that the Token can jump to.  Directions differ on the Token's color.
 	public Location[] validJumpLocs()
 	{
 		Location[] jumpLocs;
@@ -191,6 +198,7 @@ public class Token
 		}
 		return jumpLocs;
 	}
+	
 	
 	public boolean canMoveTo(Location l)
 	{
